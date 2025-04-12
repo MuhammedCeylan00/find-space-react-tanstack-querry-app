@@ -11,6 +11,18 @@
         "name": "İstanbul Boğazı",
         "lat": 41.0082,
         "lng": 28.9784
+      },
+      {
+        "id": 3,
+        "name": "Kapadokya",
+        "lat": 38.9637,
+        "lng": 34.9107
+      },
+      {
+        "id": 4,
+        "name": "Pamukkale",
+        "lat": 37.9102,
+        "lng": 29.1158
       }
     ]
   }
