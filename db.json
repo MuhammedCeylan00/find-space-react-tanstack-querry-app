@@ -1,0 +1,17 @@
+{
+    "places": [
+      {
+        "id": 1,
+        "name": "Ankara Kalesi",
+        "lat": 39.941,
+        "lng": 32.863
+      },
+      {
+        "id": 2,
+        "name": "İstanbul Boğazı",
+        "lat": 41.0082,
+        "lng": 28.9784
+      }
+    ]
+  }
+  
