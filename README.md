@@ -38,7 +38,7 @@ src/
 
 ### 1. Projeyi klonlayın
 ```bash
-git clone https://github.com/Samet-Berkay-Taskin/PlaceReviewWebApp
+git clone https://github.com/Samet-Berkay-Taskin/find-space-react-tanstack-querry-app.git
 cd PlaceReviewWebApp
 ```
 
@@ -73,6 +73,8 @@ npm run dev
     {
       "id": "1",
       "title": "Galata Kulesi",
+      "lat": 39.941,
+      "lng": 32.863,
       "description": "İstanbul'un tarihi kulelerinden biri.",
       "comments": ["Manzara harikaydı!", "Gün batımında çıkın mutlaka."]
     }
