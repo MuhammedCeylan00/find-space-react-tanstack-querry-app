@@ -5,6 +5,7 @@ export interface IPlace {
   lat: number;
   lng: number;
   comments: string[];
+  isFavorite: boolean;
 }
 
 export interface IMapProps {

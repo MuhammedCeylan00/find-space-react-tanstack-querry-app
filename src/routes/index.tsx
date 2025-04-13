@@ -2,10 +2,12 @@ import { Routes, Route } from "react-router";
 import Home from '../pages/home';
 
 import Layout from "../layout";
+
 import NewPlace from '../pages/newPlace';
 import AddReview from '../pages/addReview';
 import PlaceDetail from "../pages/placeDetail";
 import Profile from "../pages/profile";
+import FavoritePage from "../pages/FavoritePage";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,7 @@ const AppRoutes = () => {
         <Route path="/places/review" element={<AddReview />} />
         <Route path="/places/review/:placeId" element={<AddReview />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/favorites" element={<FavoritePage />} />
       </Route>
     </Routes>
   );

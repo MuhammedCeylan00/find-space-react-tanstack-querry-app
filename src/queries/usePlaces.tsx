@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { addCommentToPlace, createPlace, getPlace, getPlaces } from '../services/mockService';
+import { addCommentToPlace, createPlace, getPlace, getPlaces, toggleFavoriteRequest } from '../services/mockService';
+
+import { IPlace } from '../interfaces';
 
 export const usePlaces = () => {
   return useQuery({
@@ -38,6 +40,37 @@ export const useAddComment = () => {
       addCommentToPlace(placeId, review),
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['place', variables.placeId] });
+    },
+  });
+};
+
+export const useToggleFavorite = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ placeId, isFavorite }: { placeId: string; isFavorite: boolean }) =>
+      toggleFavoriteRequest(placeId, isFavorite),
+
+    onMutate: async ({ placeId, isFavorite }) => { // optimistik update yapılan yer mutasyon başlamadan önce çalışır ve cachedeki önceki değeri iptal edip yeni cache oluşturup yeni veriyi eskisine ekler
+      await queryClient.cancelQueries(['places']);
+
+      const previousPlaces = queryClient.getQueryData<any[]>(['places']);
+
+      queryClient.setQueryData(['places'], (old: IPlace[]) =>
+        old?.map((place: IPlace) =>
+          place.id === placeId ? { ...place, isFavorite } : place
+        )
+      );
+
+      return { previousPlaces }; // error durumunda geri dönmek için eski cache'yi gönderiyoruz ediyoruz
+    },
+
+    onError: (_error, _variables, context) => { // Eğer istek başarısız olursa cache'yi eski haline getiriyoruz (rollback)
+      queryClient.setQueryData(['places'], context?.previousPlaces);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries(['places']);
     },
   });
 };

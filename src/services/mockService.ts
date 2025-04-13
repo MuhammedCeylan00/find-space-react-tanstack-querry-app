@@ -30,3 +30,27 @@ export const addCommentToPlace = async (placeId: string, comment: string) => {
 
   return updatedPlace;
 };
+
+export const toggleFavoriteRequest = async (placeId: string, isFavorite: boolean) => {
+  return Axios.patch(`/places/${placeId}`, {
+    isFavorite,
+  });
+};
+
+export const toggleFavoriteRequest2 = async (placeId: string, isFavorite: boolean) => {  // optimistiği test etmek için
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      Axios.patch(`/places/${placeId}`, { isFavorite })
+        .then(res => resolve(res.data))
+        .catch(err => reject(err));
+    }, 5000); 
+  });
+};
+
+export const toggleFavoriteRequest3 = async (placeId: string, isFavorite: boolean) => { // optimistikte eğer api hata döndürürse ne olur testi için
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error('Sunucu hatası: Favori işlemi başarısız oldu'));
+    }, 5000); // 5 saniye sonra bilinçli hata
+  });
+};
