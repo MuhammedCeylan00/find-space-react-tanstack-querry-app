@@ -9,6 +9,12 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
         if (path === '/') {
             return pathname === '/' ? 'bg-lime-100 text-gray-900' : '';
         }
+        if (path === '/places') {
+            return pathname.startsWith('/places') && !pathname.startsWith('/places/review') ? 'bg-lime-100 text-gray-900' : '';
+        }
+        if (path === '/places/review') {
+            return pathname.startsWith('/places/review') ? 'bg-lime-100 text-gray-900' : '';
+        }
         return pathname.startsWith(path) ? 'bg-lime-100 text-gray-900' : '';
     };
 
@@ -17,7 +23,7 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
             <div className="w-60 h-full p-3 space-y-2 dark:bg-gray-50 dark:text-gray-800">
                 <div className="flex items-center p-2 space-x-4">
                     <img
-                        src="src/assets/images/minion.png"
+                        src="/src/assets/images/minion.png"
                         alt=""
                         className="w-12 h-12 rounded-full dark:bg-gray-500"
                     />
@@ -44,14 +50,6 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
                                 <span>Ana Sayfa</span>
                             </Link>
                         </li>
-                        <li className={`rounded-md transition-colors ${isActive('/new')}`}>
-                            <Link to="/new" className="flex items-center p-2 space-x-3 rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-600">
-                                    <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
-                                </svg>
-                                <span>Yeni Bölge</span>
-                            </Link>
-                        </li>
                         <li className={`rounded-md transition-colors ${isActive('/places')}`}>
                             <Link to="/places" className="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-600">
@@ -60,11 +58,19 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
                                 <span>Bölge Detay</span>
                             </Link>
                         </li>
-                        <li className={`rounded-md transition-colors ${isActive('/places')}`}>
-                            <Link to="/places" className="flex items-center p-2 space-x-3 rounded-md">
+                        <li className={`rounded-md transition-colors ${isActive('/new')}`}>
+                            <Link to="/new" className="flex items-center p-2 space-x-3 rounded-md">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-600">
                                     <path d="M240 256c0-17.7 14.3-32 32-32s32 14.3 32 32-14.3 32-32 32-32-14.3-32-32z" />
                                     <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm106.5 343.5c-53.8 53.8-141.3 53.8-195 0-53.8-53.8-53.8-141.3 0-195s141.3-53.8 195 0c53.7 53.7 53.7 141.3 0 195z" />
+                                </svg>
+                                <span>Yeni Bölge</span>
+                            </Link>
+                        </li>
+                        <li className={`rounded-md transition-colors ${isActive('/places/review')}`}>
+                            <Link to="/places/review" className="flex items-center p-2 space-x-3 rounded-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current dark:text-gray-600">
+                                    <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
                                 </svg>
                                 <span>İnceleme Ekle</span>
                             </Link>

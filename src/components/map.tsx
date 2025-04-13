@@ -1,30 +1,41 @@
+import { useEffect, memo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { LatLngExpression } from 'leaflet';
-import { useEffect } from 'react';
 
-interface Props {
-  places: { lat: number; lng: number }[] | null;
-  flyTo: LatLngExpression | null;
-  mapTitle: string;
-  mapDescription: string;
-}
+import { IPlace, IMapProps } from '../interfaces';
 
-const Map = ({ places, flyTo = null, mapTitle, mapDescription }: Props) => {
+
+const Map = ({
+  place,
+  places,
+  mapTitle,
+  mapDescription,
+  isReviewPage,
+  addReviewInput,
+}: IMapProps) => {
   const defaultCenter: LatLngExpression = [39.9208, 32.8541];
 
-  const FlyToLocation = ({ flyTo }: { flyTo: LatLngExpression }) => {
+  const navigate = useNavigate();
+
+  const FlyToLocation = ({ place }: { place: LatLngExpression }) => {
     const map = useMap();
 
     useEffect(() => {
-      if (flyTo) {
-        map.flyTo(flyTo, 13, {
+      if (place) {
+        map.flyTo(place, 13, {
           animate: true,
           duration: 2,
         });
       }
-    }, [flyTo, map]);
+    }, [place, map]);
 
     return null;
+  };
+
+  const handleClickMarket = (place: IPlace) => {
+    navigate(`/places/${place.id}`)
   };
 
   return (
@@ -38,13 +49,32 @@ const Map = ({ places, flyTo = null, mapTitle, mapDescription }: Props) => {
           >
             <TileLayer attribution='&copy; OpenStreetMap contributors' url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
-            {flyTo && <FlyToLocation flyTo={flyTo} />}
+            {place && <FlyToLocation place={[place?.lat, place?.lng]} />}
 
             {places && places.map((place) => (
-              <Marker key={`${place.lat}-${place.lng}`} position={[place.lat, place.lng]}>
-                <Popup>{place?.name || 'No name'}</Popup>
+              <Marker
+                key={`${place.lat}-${place.lng}`}
+                position={[place.lat, place.lng]}
+              >
+                <Popup>
+                  <section className='flex flex-col '>
+                    <span className='text-lg'>{place?.name || 'No name'}</span>
+                    {isReviewPage ? (
+                      <span className="text-center mt-0.5 hover:text-gray-500 cursor-pointer underline hover:underline-offset-4" onClick={() => { addReviewInput(place?.id) }}>İnceleme Ekle</span>
+                    ) : (
+                      <span className="text-center mt-0.5 hover:text-gray-500 cursor-pointer underline hover:underline-offset-4" onClick={() => { handleClickMarket(place) }}>Detaya Git</span>
+                    )}
+                  </section>
+                </Popup>
               </Marker>
             ))}
+            {place && (
+              <Marker position={[place.lat, place.lng]}>
+                <Popup>
+                  <span className='text-lg'>{place?.name || 'No name'}</span>
+                </Popup>
+              </Marker>
+            )}
           </MapContainer>
         </div>
         {mapDescription && mapTitle ? (
@@ -60,4 +90,4 @@ const Map = ({ places, flyTo = null, mapTitle, mapDescription }: Props) => {
   );
 };
 
-export default Map;
+export default memo(Map);
