@@ -8,6 +8,7 @@ import AddReview from '../pages/addReview';
 import PlaceDetail from "../pages/placeDetail";
 import Profile from "../pages/profile";
 import FavoritePage from "../pages/FavoritePage";
+import PlacesList from "../pages/placeList";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/places/review/:placeId" element={<AddReview />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/favorites" element={<FavoritePage />} />
+        <Route path="/place-list" element={<PlacesList />} />
       </Route>
     </Routes>
   );

@@ -54,3 +54,8 @@ export const toggleFavoriteRequest3 = async (placeId: string, isFavorite: boolea
     }, 5000); // 5 saniye sonra bilinçli hata
   });
 };
+
+export const getPaginatedPlaces = async (page: number) => {
+  const response = await fetch(`http://localhost:4000/places?_page=${page}&_limit=5`);
+  return response.json();
+};

@@ -1,6 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query';
 
-import { addCommentToPlace, createPlace, getPlace, getPlaces, toggleFavoriteRequest } from '../services/mockService';
+import {
+  addCommentToPlace,
+  createPlace,
+  getPaginatedPlaces,
+  getPlace,
+  getPlaces,
+  toggleFavoriteRequest
+} from '../services/mockService';
 
 import { IPlace } from '../interfaces';
 
@@ -66,11 +78,27 @@ export const useToggleFavorite = () => {
     },
 
     onError: (_error, _variables, context) => { // Eğer istek başarısız olursa cache'yi eski haline getiriyoruz (rollback)
-      queryClient.setQueryData(['places'], context?.previousPlaces);
+      if (context?.previousPlaces) {
+        queryClient.setQueryData(['places'], context.previousPlaces); 
+      }
     },
 
     onSettled: () => {
       queryClient.invalidateQueries(['places']);
+      queryClient.invalidateQueries(['places', 'infinite']);
+    },
+  });
+};
+
+export const useInfinitePlaces = () => {
+  return useInfiniteQuery<IPlace[], Error>({
+    queryKey: ['places', 'infinite'], // qery key'i değiştirdik çünkü üstteki usePlaces ile çakışmasştı
+    queryFn: ({ pageParam= 1 }) => getPaginatedPlaces(pageParam),
+    initialPageParam: 1, // başlangıçta 1. sayfayı yükler
+    staleTime: 1000 * 60 * 5,
+    getNextPageParam: (lastPage: IPlace[], allPages: IPlace[][]) => {
+      if (!lastPage || lastPage.length === 0) return undefined; // eüğer veri yoksa, son sayfadır
+      return allPages.length + 1; // bir sonraki sayfa numarası
     },
   });
 };
