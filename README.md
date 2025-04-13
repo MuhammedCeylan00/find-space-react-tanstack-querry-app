@@ -1,54 +1,88 @@
-# React + TypeScript + Vite
+# 🗺️ FindSpace - Mekan Keşfetme ve Yorumlama Uygulaması
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**FindSpace**, React ve React Query kullanılarak geliştirilmiş basit bir mekan keşif ve inceleme uygulamasıdır. Kullanıcılar yeni mekanlar ekleyebilir, mekanlara dair yorumlarını paylaşabilir ve diğer kullanıcıların deneyimlerini görebilir.
 
-Currently, two official plugins are available:
+## 🚀 Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🏠 Ana Sayfa – Tüm mekanları listeleme  
+- 📍 Mekan Detayları – Seçilen mekana ait detayları ve yorumları görüntüleme  
+- ✍️ Yorum Ekleme – Mekanlara yeni yorum ekleyebilme  
+- ➕ Yeni Mekan Ekleme – Uygulamaya yeni mekan kaydetme  
+- 👤 Profil Sayfası – Kullanıcı profili (şablon olarak hazırlandı)  
+- 🗺️ Harita Üzerinden Seçim – Yorum eklerken mekan harita üzerinden seçilebiliyor  
 
-## Expanding the ESLint configuration
+## 🛠️ Kullanılan Teknolojiler
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Vite React 
+- React Router  
+- Tanstack Query (Eski adıylaReact Query)
+- Axios  
+- Tailwind CSS  
+- React Leaflet
+- json-server  
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📁 Proje Yapısı
+
+```
+src/
+├── components/         # Tekrar kullanılabilir bileşenler
+├── pages/              # Sayfa bileşenleri
+├── queries/            # React Query fonksiyonları
+├── services/           # Axios API fonksiyonları
+├── layout/             # Sayfa düzeni bileşenleri
+├── App.tsx             # Ana uygulama
+└── routes/             # Sayfa rotaları
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔧 Kurulum ve Kullanım
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 1. Projeyi klonlayın
+```bash
+git clone https://github.com/Samet-Berkay-Taskin/PlaceReviewWebApp
+cd PlaceReviewWebApp
 ```
+
+### 2. Gerekli paketleri yükleyin
+```bash
+npm install
+```
+
+### 3. `json-server`'ı başlatın
+
+Proje kök dizininde bir `db.json` dosyası bulunmalıdır. İçinde `places` verileri olmalıdır.
+
+```bash
+npm install -g json-server
+npm run server
+```
+
+> API şu adreste çalışacaktır: `http://localhost:4000`
+
+### 4. Başka bir terminal'de React uygulamasını başlatın
+```bash
+npm run dev
+```
+
+> Uygulama genelde `http://localhost:5173` adresinde çalışır.
+
+## 🗃️ Örnek db.json Yapısı
+
+```json
+{
+  "places": [
+    {
+      "id": "1",
+      "title": "Galata Kulesi",
+      "description": "İstanbul'un tarihi kulelerinden biri.",
+      "comments": ["Manzara harikaydı!", "Gün batımında çıkın mutlaka."]
+    }
+  ]
+}
+```
+
+## ✨ Notlar
+
+- **React Query**, API isteklerini cache’leyerek performansı artırır ve loading/error durumlarını yönetmeyi kolaylaştırır.
+- `useQuery` ile veriler çekilir, `useMutation` ile veri gönderilir.
+- json-server sayesinde hızlıca sahte bir REST API oluşturuldu.
+- Yorum ekleme işlemi sonrası yönlendirme yapılır (örnek: mekana geri dönme).
