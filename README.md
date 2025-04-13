@@ -86,3 +86,7 @@ npm run dev
 - `useQuery` ile veriler çekilir, `useMutation` ile veri gönderilir.
 - json-server sayesinde hızlıca sahte bir REST API oluşturuldu.
 - Yorum ekleme işlemi sonrası yönlendirme yapılır (örnek: mekana geri dönme).
+
+- `feature/react-query-hooks` isimli branch'te React Query'nin **infinite scroll** ve **optimistic update** özelliklerinin kullanıldığı iki yeni sayfa eklenmiştir:
+  - **Favorilerim**
+  - **Mekan Listeleri**
