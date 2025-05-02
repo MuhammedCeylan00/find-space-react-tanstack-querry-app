@@ -9,7 +9,8 @@
       "comments": [
         "Manzara gerçekten harikaydı!",
         "Tarih kokan bir yer, mutlaka görülmeli."
-      ]
+      ],
+      "isFavorite": true
     },
     {
       "id": "2",
@@ -69,7 +70,8 @@
       "comments": [
         "Sabah 4'te çıktık ama değdi!",
         "Tepedeki heykeller çok etkileyici."
-      ]
+      ],
+      "isFavorite": false
     },
     {
       "id": "7",
@@ -80,7 +82,8 @@
       "comments": [
         "Merdivenleri tırmanmak yorucuydu ama manzara nefisti.",
         "Sessizlik ve huzur arayanlara birebir."
-      ]
+      ],
+      "isFavorite": false
     },
     {
       "id": "8",
@@ -91,7 +94,8 @@
       "comments": [
         "Tarih meraklıları için cennet gibi.",
         "Her sütunun bir hikayesi var gibi hissediliyor."
-      ]
+      ],
+      "isFavorite": false
     },
     {
       "id": "628616ee-0471-454d-b00a-9202f81201d6",
@@ -99,7 +103,8 @@
       "lat": 37.2231,
       "lng": 38.9226,
       "description": "Dünyanın bilinen en eski tapınak kompleksi, M.Ö. 9600 civarına tarihleniyor.",
-      "comments": []
+      "comments": [],
+      "isFavorite": true
     }
   ]
 }
